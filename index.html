@@ -41,14 +41,6 @@
         header {
             background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
                         url('shape-4.png') no-repeat center/cover;
-            background-size: cover;
-            
-            @media screen and (max-width: 768px) {
-                background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-                            url('shape-4.png') no-repeat center;
-                background-size: contain;
-                background-position: center center;
-            }
             height: 100vh;
             position: relative;
         }
@@ -635,6 +627,113 @@
         </div>
     </section>
 
+    <!-- Book Sales Section -->
+    <section class="book-sales">
+        <style>
+            .book-sales {
+                padding: 4rem 0;
+                background: linear-gradient(45deg, rgba(0,0,0,0.9), rgba(30,144,255,0.1));
+            }
+
+            .book-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                padding: 2rem 0;
+            }
+
+            .book-card {
+                background: rgba(255,255,255,0.1);
+                border-radius: 15px;
+                padding: 2rem;
+                text-align: center;
+                transition: transform 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .book-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 0 20px var(--primary-blue);
+            }
+
+            .book-icon {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 1rem;
+                background: var(--primary-blue);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+            }
+
+            .book-title {
+                color: var(--primary-blue);
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .book-price {
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin: 1rem 0;
+            }
+
+            .book-description {
+                margin-bottom: 1.5rem;
+                color: rgba(255,255,255,0.8);
+            }
+
+            .buy-btn {
+                background: var(--primary-blue);
+                color: white;
+                padding: 0.8rem 2rem;
+                border-radius: 25px;
+                border: none;
+                cursor: pointer;
+                transition: 0.3s;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .buy-btn:hover {
+                background: var(--secondary-blue);
+                transform: scale(1.05);
+            }
+        </style>
+
+        <div class="container">
+            <h2>Training Books</h2>
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-icon">📘</div>
+                    <h3 class="book-title">Beginner's Guide to Fitness</h3>
+                    <p class="book-description">Perfect for those starting their fitness journey. Learn fundamentals and build healthy habits.</p>
+                    <div class="book-price">$24.99</div>
+                    <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-icon">📗</div>
+                    <h3 class="book-title">Advanced Training Methods</h3>
+                    <p class="book-description">Take your training to the next level with advanced techniques and strategies.</p>
+                    <div class="book-price">$34.99</div>
+                    <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-icon">📙</div>
+                    <h3 class="book-title">Nutrition & Meal Planning</h3>
+                    <p class="book-description">Complete guide to nutrition, meal prep, and creating sustainable eating habits.</p>
+                    <div class="book-price">$29.99</div>
+                    <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
@@ -767,5 +866,70 @@
             observer.observe(section);
         });
     </script>
+    <!-- Social Media Section -->
+    <div class="social-media-section">
+        <style>
+            .social-media-section {
+                background: linear-gradient(45deg, rgba(30,144,255,0.1), rgba(0,0,0,0.9));
+                padding: 2rem 0;
+                text-align: center;
+                border-top: 1px solid rgba(30,144,255,0.3);
+            }
+            
+            .social-icons {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin: 1rem 0;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+                color: var(--white);
+                text-decoration: none;
+                font-size: 1.5rem;
+            }
+            
+            .social-icon:hover {
+                transform: translateY(-5px);
+                background: var(--primary-blue);
+                box-shadow: 0 0 20px var(--primary-blue);
+            }
+        </style>
+        
+        <div class="container">
+            <h2 class="animate-title" style="animation: slideInFromLeft 1s ease-out;">Social Media</h2>
+            <div class="social-icons">
+                <a href="#" class="social-icon">
+                    <img src="png-transparent-facebook-logo-facebook-computer-icons-desktop-s-icon-facebook-blue-text-trademark.png" alt="Facebook" width="24" height="24">
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="Instagram_icon.png" alt="Instagram" width="24" height="24">
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="images.png" alt="Twitter" width="24" height="24">
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="png-transparent-in-icon-social-media-linkedin-computer-icons-linkedin-blue-text-trademark-thumbnail.png" alt="LinkedIn" width="24" height="24">
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="pngtree-youtube-social-media-3d-stereo-png-image_6308427.png" alt="YouTube" width="24" height="24">
+                </a>
+            </div>
+            <div class="contact-info" style="margin-top: 2rem; text-align: left;">
+                <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">Contact Us</h3>
+                <p><i class="fas fa-phone"></i> Phone: +20 114 720 8925</p>
+                <p><i class="fas fa-envelope"></i> Email: contact@alifit.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: 123 Fitness Street, Cairo, Egypt</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
