@@ -348,9 +348,56 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
-            <h2>Welcome to Your Ultimate Sports Journey</h2>
+            <h2 style="font-size: 3rem; text-align: center; margin-bottom: 3rem; color: var(--primary-blue); font-weight: 700;">Welcome to Your Ultimate Sports Journey</h2>
             <p>Experience professional coaching tailored to your goals. Our expert trainers will guide you through personalized workout plans and nutrition advice to help you achieve the results you desire.</p>
         </div>
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 4rem 0; background: linear-gradient(135deg, rgba(0,0,0,0.05) 0%, rgba(255,255,255,0.05) 100%); padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <div class="stat-item" style="text-align: center; padding: 2rem; border-radius: 10px; transition: transform 0.3s ease;">
+                    <i class="fas fa-users" style="font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                    <h3 style="font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; font-weight: 800;"><span class="counter" data-target="10000">0</span>+</h3>
+                    <p style="font-size: 1.2rem; color: #666; font-weight: 500;">Active Users</p>
+                </div>
+                <div class="stat-item" style="text-align: center; padding: 2rem; border-radius: 10px; transition: transform 0.3s ease;">
+                    <i class="fas fa-star" style="font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                    <h3 style="font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; font-weight: 800;"><span class="counter" data-target="98">0</span>%</h3>
+                    <p style="font-size: 1.2rem; color: #666; font-weight: 500;">Client Satisfaction</p>
+                </div>
+                <div class="stat-item" style="text-align: center; padding: 2rem; border-radius: 10px; transition: transform 0.3s ease;">
+                    <i class="fas fa-award" style="font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                    <h3 style="font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; font-weight: 800;"><span class="counter" data-target="25">0</span>+</h3>
+                    <p style="font-size: 1.2rem; color: #666; font-weight: 500;">Years Experience</p>
+                </div>
+                <script>
+                    const counters = document.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000; // Animation duration in milliseconds
+                        const increment = target / (duration / 16); // Update every 16ms (60fps)
+                        
+                        let current = 0;
+                        const updateCounter = () => {
+                            current += increment;
+                            counter.textContent = Math.floor(current);
+                            
+                            if (current < target) {
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target;
+                            }
+                        };
+                        
+                        // Start counter animation when element is in view
+                        const observer = new IntersectionObserver((entries) => {
+                            if (entries[0].isIntersecting) {
+                                updateCounter();
+                                observer.disconnect();
+                            }
+                        });
+                        
+                        observer.observe(counter);
+                    });
+                </script>
+            
     </section>
 
         <!-- Gallery Section -->
