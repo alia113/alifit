@@ -328,7 +328,7 @@
 <body>
     <!-- Header Section -->
     <header>
-        <nav>
+        <nav style="flex-wrap: wrap; padding: 15px 5%; width: 100%; max-width: 100vw;">
             <div class="logo">AliFit</div>
             <div class="nav-links" style="display: flex; justify-content: center; align-items: center; margin: 0 auto;">
                 <a href="#home">Home</a>
@@ -699,10 +699,13 @@
                     nav.style.background = 'rgba(0,0,0,0.95)';
                     nav.style.padding = '10px 5%';
                 }
+                // Only create menu button once if it doesn't exist
                 const navLinks = document.querySelector('.nav-links');
-                const menuBtn = document.createElement('button');
-                menuBtn.classList.add('menu-btn');
-                menuBtn.innerHTML = '☰';
+                if (!document.querySelector('.menu-btn')) {
+                    const menuBtn = document.createElement('button');
+                    menuBtn.classList.add('menu-btn');
+                    menuBtn.innerHTML = '☰';
+                }
                 menuBtn.style.cssText = 'background: none; border: none; color: white; font-size: 24px; cursor: pointer; display: none;';
                 nav.insertBefore(menuBtn, navLinks);
                 
