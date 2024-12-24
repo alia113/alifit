@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<meta name="format-detection" content="telephone=yes">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Coaching Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --primary-blue: #1E90FF;
+            --secondary-blue: #87CEFA;
+            --white: #FFFFFF;
+            --light-bg: #FFFFFF;
+            --light-text: #000000;
+            --dark-bg: #000000;
+            --dark-text: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                        url('200.gif') no-repeat center/cover;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+      
+            content: '\f0a5'; /* Font Awesome arrow icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            position: absolute;
+            bottom: 2rem;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        header::after:hover {
+            color: var(--secondary-blue);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(0,0,0,0.9);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            transition: 0.3s;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 10px var(--primary-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .cta-btn {
+            padding: 15px 30px;
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            animation: fadeInUp 1s ease 0.4s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary-blue);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                        url('about-bg.jpg') fixed center/cover;
+        }
+
+        .about h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Transformations Section */
+        .gallery {
+            padding: 100px 0;
+            background: var(--primary-black);
+        }
+
+        .gallery h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                        url('pricing-bg.jpg') fixed center/cover;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 20px;
+        }
+
+        .price-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px var(--primary-blue);
+        }
+
+        .price-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features li {
+            margin: 0.5rem 0;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--primary-black);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .social-icon {
+            font-size: 2rem;
+            color: var(--white);
+            transition: 0.3s;
+        }
+
+        .social-icon:hover {
+            color: var(--primary-blue);
+            transform: scale(1.2);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--primary-blue);
+            border-radius: 5px;
+            color: var(--white);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav style="flex-wrap: wrap; padding: 15px 5%; width: calc(100% - 4cm); max-width: calc(100vw - 4cm); display: flex; align-items: center; position: fixed; top: 20px; left: 2cm; z-index: 1000; background: transparent; backdrop-filter: blur(10px); border-radius: 25px;">
+            <div class="logo">AliFit</div>
+            <button id="theme-toggle" style="margin-left: 20px; padding: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.1); cursor: pointer; color: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: all 0.3s ease;" onclick="toggleTheme()">
+                <i class="fas fa-moon" id="theme-icon" style="transform: rotate(0deg); transition: transform 0.5s ease;"></i>
+            </button>
+            <script>
+                function toggleTheme() {
+                    const body = document.body;
+                    const icon = document.getElementById('theme-icon');
+                    const sections = document.querySelectorAll('section');
+                    
+                    if (body.classList.contains('dark-mode')) {
+                        // Switch to light mode
+                        body.classList.remove('dark-mode');
+                        icon.classList.remove('fa-sun');
+                        icon.classList.add('fa-moon');
+                        icon.style.transform = 'rotate(0deg)';
+                        
+                        // Update sections for light mode
+                        sections.forEach(section => {
+                            section.style.backgroundColor = '#ffffff';
+                            section.style.color = '#000000';
+                        });
+
+                        // Update text colors
+                        document.querySelectorAll('h1, h2, h3, p, a').forEach(element => {
+                            element.style.color = '#000000';
+                        });
+
+                    } else {
+                        // Switch to dark mode
+                        body.classList.add('dark-mode');
+                        icon.classList.remove('fa-moon');
+                        icon.classList.add('fa-sun');
+                        icon.style.transform = 'rotate(360deg)';
+                        
+                        // Update sections for dark mode
+                        sections.forEach(section => {
+                            section.style.backgroundColor = '#000000';
+                            section.style.color = '#ffffff';
+                        });
+
+                        // Update text colors
+                        document.querySelectorAll('h1, h2, h3, p, a').forEach(element => {
+                            element.style.color = '#ffffff';
+                        });
+                    }
+                }
+
+                // Check user's preferred color scheme
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.body.classList.add('dark-mode');
+                    const icon = document.getElementById('theme-icon');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    
+                    // Apply dark mode styles initially
+                    const sections = document.querySelectorAll('section');
+                    sections.forEach(section => {
+                        section.style.backgroundColor = '#000000';
+                        section.style.color = '#ffffff';
+                    });
+
+                    document.querySelectorAll('h1, h2, h3, p, a').forEach(element => {
+                        element.style.color = '#ffffff';
+                    });
+                }
+            </script>
+            <div class="nav-links" style="display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+        <div class="hero" id="home">
+            <h1 style="animation: fadeInUp 1s ease-out;">Transform Your Body</h1>
+            <p>Professional coaching for exceptional results</p>
+            <button class="cta-btn">Join Now</button>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 style="font-size: 3rem; text-align: center; margin-bottom: 3rem; color: var(--primary-blue); font-weight: 700;">Welcome to Your Ultimate Sports Journey</h2>
+            <p>Experience professional coaching tailored to your goals. Our expert trainers will guide you through personalized workout plans and nutrition advice to help you achieve the results you desire.</p>
+        </div>
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 4rem 0; background: linear-gradient(135deg, rgba(0,0,0,0.05) 0%, rgba(255,255,255,0.05) 100%); padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <div class="stat-item" style="text-align: center; padding: 2rem; border-radius: 10px; transition: transform 0.3s ease;">
+                    <i class="fas fa-users" style="font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                    <h3 style="font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; font-weight: 800;"><span class="counter" data-target="10000">0</span>+</h3>
+                    <p style="font-size: 1.2rem; color: #666; font-weight: 500;">Active Users</p>
+                </div>
+                <div class="stat-item" style="text-align: center; padding: 2rem; border-radius: 10px; transition: transform 0.3s ease;">
+                    <i class="fas fa-star" style="font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                    <h3 style="font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; font-weight: 800;"><span class="counter" data-target="98">0</span>%</h3>
+                    <p style="font-size: 1.2rem; color: #666; font-weight: 500;">Client Satisfaction</p>
+                </div>
+                <div class="stat-item" style="text-align: center; padding: 2rem; border-radius: 10px; transition: transform 0.3s ease;">
+                    <i class="fas fa-award" style="font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                    <h3 style="font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; font-weight: 800;"><span class="counter" data-target="25">0</span>+</h3>
+                    <p style="font-size: 1.2rem; color: #666; font-weight: 500;">Years Experience</p>
+                </div>
+                <script>
+                    const counters = document.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000; // Animation duration in milliseconds
+                        const increment = target / (duration / 16); // Update every 16ms (60fps)
+                        
+                        let current = 0;
+                        const updateCounter = () => {
+                            current += increment;
+                            counter.textContent = Math.floor(current);
+                            
+                            if (current < target) {
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target;
+                            }
+                        };
+                        
+                        // Start counter animation when element is in view
+                        const observer = new IntersectionObserver((entries) => {
+                            if (entries[0].isIntersecting) {
+                                updateCounter();
+                                observer.disconnect();
+                            }
+                        });
+                        
+                        observer.observe(counter);
+                    });
+                </script>
+            
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" style="padding: 100px 0; background: linear-gradient(45deg, rgba(0,0,0,0.9), rgba(30,144,255,0.1));">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary-blue);">App Features</h2>
+            <div class="slider-container" style="display: flex; overflow-x: hidden; scroll-behavior: smooth; padding: 2rem 0;">
+                <div class="slider" style="display: flex; animation: slide 20s linear infinite;">
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                                <path d="M10,40 Q10,10 40,10" fill="none" stroke="#3a3a3a" stroke-width="0.5"/>
+                                <path d="M160,10 Q190,10 190,40" fill="none" stroke="#3a3a3a" stroke-width="0.5"/>
+                                <path d="M10,360 Q10,390 40,390" fill="none" stroke="#3a3a3a" stroke-width="0.5"/>
+                                <path d="M160,390 Q190,390 190,360" fill="none" stroke="#3a3a3a" stroke-width="0.5"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="Overlay (1).png" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Workout Tracking</h3>
+                    </div>
+
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <!-- Same SVG frame structure -->
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Nutrition Planning</h3>
+                    </div>
+
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <!-- Same SVG frame structure -->
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Progress Analytics</h3>
+                    </div>
+
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <!-- Same SVG frame structure -->
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Live Coaching</h3>
+                    </div>
+
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <!-- Same SVG frame structure -->
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Community Support</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            @keyframes slide {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-100%);
+                }
+            }
+            .slider {
+                display: flex;
+                gap: 2rem;
+                padding: 2rem 0;
+            }
+            .slider > div {
+                flex-shrink: 0;
+            }
+        </style>
+    </section>
+
+        <!-- Gallery Section -->
+        <!-- Gallery Section -->
+        <section class="gallery" id="gallery">
+            <div class="container">
+                <h2>Transformations</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3" alt="Transformation 1">
+                        </a>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3" alt="Transformation 2">
+                        </a>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3" alt="Transformation 3">
+                        </a>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3" alt="Transformation 4">
+                        </a>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?ixlib=rb-4.0.3" alt="Transformation 5">
+                        </a>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3" alt="Transformation 6">
+                        </a>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3" alt="Transformation 7">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+    <style>
+        .gallery {
+            padding: 100px 0;
+            background: var(--primary-black);
+        }
+    
+        .gallery h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+        }
+    
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 200px);
+            gap: 1.5rem;
+            padding: 0 20px;
+            grid-template-areas: 
+                "img1 img1 img2 img3"
+                "img1 img1 img4 img4"
+                "img5 img6 img4 img4"
+                "img5 img6 img7 img7";
+        }
+    
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    
+        .gallery-item:nth-child(1) { grid-area: img1; }
+        .gallery-item:nth-child(2) { grid-area: img2; }
+        .gallery-item:nth-child(3) { grid-area: img3; }
+        .gallery-item:nth-child(4) { grid-area: img4; }
+        .gallery-item:nth-child(5) { grid-area: img5; }
+        .gallery-item:nth-child(6) { grid-area: img6; }
+        .gallery-item:nth-child(7) { grid-area: img7; }
+    
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+    
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(7, 300px);
+                grid-template-areas: 
+                    "img1"
+                    "img2"
+                    "img3"
+                    "img4"
+                    "img5"
+                    "img6"
+                    "img7";
+            }
+        }
+    </style>
+    </section>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <style>
+            .pricing-slider {
+                position: relative;
+                overflow: hidden;
+                padding: 20px 0;
+            }
+    
+            .pricing-grid {
+                display: flex;
+                transition: transform 0.3s ease;
+                gap: 2rem;
+            }
+    
+            .price-card {
+                min-width: 300px;
+                flex: 1;
+                position: relative;
+                background: rgba(255,255,255,0.1);
+                padding: 2rem;
+                border-radius: 10px;
+                text-align: center;
+                transition: 0.3s;
+            }
+    
+            .price-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 0 20px var(--primary-blue);
+            }
+    
+            .featured {
+                transform: scale(1.05);
+                border: 2px solid var(--primary-blue);
+            }
+    
+            .popular-tag {
+                position: absolute;
+                top: -12px;
+                right: 20px;
+                background: var(--primary-blue);
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-size: 0.9rem;
+            }
+    
+            .price-card h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                color: var(--primary-blue);
+            }
+    
+            .price {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                color: var(--white);
+            }
+    
+            .features {
+                list-style: none;
+                margin-bottom: 2rem;
+            }
+    
+            .features li {
+                margin: 0.5rem 0;
+                opacity: 0.9;
+            }
+    
+            .slider-nav {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+    
+            .prev-btn, .next-btn {
+                background: var(--primary-blue);
+                border: none;
+                color: var(--white);
+                padding: 10px 20px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+    
+            .prev-btn:hover, .next-btn:hover {
+                background: var(--secondary-blue);
+            }
+    
+            .slider-dots {
+                display: flex;
+                gap: 0.5rem;
+            }
+    
+            .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: var(--white);
+                opacity: 0.5;
+                cursor: pointer;
+            }
+    
+            .dot.active {
+                opacity: 1;
+                background: var(--primary-blue);
+            }
+    
+            @media (max-width: 768px) {
+                .pricing-grid {
+                    flex-wrap: nowrap;
+                    overflow-x: hidden;
+                }
+                
+                .price-card {
+                    min-width: 100%;
+                }
+            }
+        </style>
+    
+        <div class="container">
+            <h2>Choose Your Plan</h2>
+            <div class="pricing-slider">
+                <div class="pricing-grid">
+                    <div class="price-card">
+                        <h3>Basic Plan</h3>
+                        <div class="price">$29/mo</div>
+                        <ul class="features">
+                            <li>Basic Workout Plans</li>
+                            <li>Community Support</li>
+                            <li>Progress Tracking</li>
+                            <li>Email Support</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=201147208925" class="cta-btn" style="text-decoration: none;">Get Started</a>
+                    </div>
+                    <div class="price-card featured">
+                        <div class="popular-tag">Most Popular</div>
+                        <h3>Pro Plan</h3>
+                        <div class="price">$49/mo</div>
+                        <ul class="features">
+                            <li>Advanced Workout Plans</li>
+                            <li>Nutrition Guidance</li>
+                            <li>Priority Support</li>
+                            <li>1-on-1 Monthly Session</li>
+                            <li>Custom Progress Reports</li>
+                        </ul>
+                        <button class="cta-btn">Get Started</button>
+                    </div>
+                    <div class="price-card">
+                        <h3>Elite Plan</h3>
+                        <div class="price">$99/mo</div>
+                        <ul class="features">
+                            <li>Premium Workout Plans</li>
+                            <li>Weekly 1-on-1 Sessions</li>
+                            <li>24/7 Support Access</li>
+                            <li>Custom Meal Plans</li>
+                            <li>Personal Training App</li>
+                            <li>Video Analysis</li>
+                        </ul>
+                        <button class="cta-btn">Get Started</button>
+                    </div>
+                </div>
+                <div class="slider-nav">
+                    <button class="prev-btn">❮</button>
+                    <div class="slider-dots"></div>
+                    <button class="next-btn">❯</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Sales Section -->
+    <section class="book-sales">
+        <style>
+            .book-sales {
+                padding: 4rem 0;
+                background: linear-gradient(45deg, rgba(0,0,0,0.9), rgba(30,144,255,0.1));
+            }
+
+            .book-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                padding: 2rem 0;
+            }
+
+            .book-card {
+                background: rgba(255,255,255,0.1);
+                border-radius: 15px;
+                padding: 2rem;
+                text-align: center;
+                transition: transform 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .book-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 0 20px var(--primary-blue);
+            }
+
+            .book-icon {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 1rem;
+                background: var(--primary-blue);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+            }
+
+            .book-title {
+                color: var(--primary-blue);
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .book-price {
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin: 1rem 0;
+            }
+
+            .book-description {
+                margin-bottom: 1.5rem;
+                color: rgba(255,255,255,0.8);
+            }
+
+            .buy-btn {
+                background: var(--primary-blue);
+                color: white;
+                padding: 0.8rem 2rem;
+                border-radius: 25px;
+                border: none;
+                cursor: pointer;
+                transition: 0.3s;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .buy-btn:hover {
+                background: var(--secondary-blue);
+                transform: scale(1.05);
+            }
+        </style>
+
+        <div class="container">
+            <h2>Training Books</h2>
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-icon">📘</div>
+                    <h3 class="book-title">Beginner's Guide to Fitness</h3>
+                    <p class="book-description">Perfect for those starting their fitness journey. Learn fundamentals and build healthy habits.</p>
+                    <div class="book-price">$24.99</div>
+                    <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-icon">📗</div>
+                    <h3 class="book-title">Advanced Training Methods</h3>
+                    <p class="book-description">Take your training to the next level with advanced techniques and strategies.</p>
+                    <div class="book-price">$34.99</div>
+                    <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-icon">📙</div>
+                    <h3 class="book-title">Nutrition & Meal Planning</h3>
+                    <p class="book-description">Complete guide to nutrition, meal prep, and creating sustainable eating habits.</p>
+                    <div class="book-price">$29.99</div>
+                    <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Stay Connected</h2>
+            <div class="social-icons">
+                <!-- Add social media icons -->
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="cta-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+    <script>
+        const slider = document.querySelector('.pricing-grid');
+        const cards = document.querySelectorAll('.price-card');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const dotsContainer = document.querySelector('.slider-dots');
+
+        let currentIndex = 0;
+
+        // Create dots
+        cards.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        function updateDots() {
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            const offset = index * -100;
+            slider.style.transform = `translateX(${offset}%)`;
+            updateDots();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = Math.max(currentIndex - 1, 0);
+            goToSlide(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = Math.min(currentIndex + 1, cards.length - 1);
+            goToSlide(currentIndex);
+        });
+    </script>
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+                if (window.innerWidth <= 768) {
+                    nav.style.background = 'rgba(0,0,0,0.95)';
+                    nav.style.padding = '10px 5%';
+                }
+                // Only create menu button once if it doesn't exist
+                const navLinks = document.querySelector('.nav-links');
+                if (!document.querySelector('.menu-btn')) {
+                    const menuBtn = document.createElement('button');
+                    menuBtn.classList.add('menu-btn');
+                    menuBtn.innerHTML = '☰';
+                }
+                menuBtn.style.cssText = 'background: none; border: none; color: white; font-size: 24px; cursor: pointer; display: none;';
+                nav.insertBefore(menuBtn, navLinks);
+                
+                if (window.innerWidth <= 768) {
+                    menuBtn.style.display = 'block';
+                    navLinks.style.display = 'none';
+                    menuBtn.addEventListener('click', () => {
+                        navLinks.style.display = navLinks.style.display === 'none' ? 'flex' : 'none';
+                        navLinks.style.flexDirection = 'column';
+                        navLinks.style.position = 'absolute';
+                        navLinks.style.top = '100%';
+                        navLinks.style.left = '0';
+                        navLinks.style.width = '100%';
+                        navLinks.style.background = 'rgba(0,0,0,0.9)';
+                        navLinks.style.padding = '20px';
+                    });
+                }
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form Submission
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            form.reset();
+        });
+
+        // Intersection Observer for Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+    <!-- Social Media Section -->
+    <div class="social-media-section">
+        <style>
+            .social-media-section {
+                background: linear-gradient(45deg, rgba(30,144,255,0.1), rgba(0,0,0,0.9));
+                padding: 2rem 0;
+                text-align: center;
+                border-top: 1px solid rgba(30,144,255,0.3);
+            }
+            
+            .social-icons {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin: 1rem 0;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+                color: var(--white);
+                text-decoration: none;
+                font-size: 1.5rem;
+            }
+            
+            .social-icon:hover {
+                transform: translateY(-5px);
+                background: var(--primary-blue);
+                box-shadow: 0 0 20px var(--primary-blue);
+            }
+        </style>
+        
+        <div class="container">
+            <h2 class="animate-title" style="animation: slideInFromLeft 1s ease-out;">Social Media</h2>
+            <div class="social-icons">
+                <a href="#" class="social-icon">
+                    <img src="png-transparent-facebook-logo-facebook-computer-icons-desktop-s-icon-facebook-blue-text-trademark.png" alt="Facebook" width="24" height="24">
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="Instagram_icon.png" alt="Instagram" width="24" height="24">
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="images.png" alt="Twitter" width="24" height="24">
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="png-transparent-in-icon-social-media-linkedin-computer-icons-linkedin-blue-text-trademark-thumbnail.png" alt="LinkedIn" width="24" height="24">
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="pngtree-youtube-social-media-3d-stereo-png-image_6308427.png" alt="YouTube" width="24" height="24">
+                </a>
+            </div>
+            <div class="contact-info" style="margin-top: 2rem; text-align: left;">
+                <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">Contact Us</h3>
+                <p><i class="fas fa-phone"></i> Phone: +20 114 720 8925</p>
+                <p><i class="fas fa-envelope"></i> Email: contact@alifit.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: 123 Fitness Street, Cairo, Egypt</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
