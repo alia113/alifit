@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sports Coaching Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Reset and Global Styles */
         * {
@@ -19,6 +20,10 @@
             --primary-blue: #1E90FF;
             --secondary-blue: #87CEFA;
             --white: #FFFFFF;
+            --light-bg: #FFFFFF;
+            --light-text: #000000;
+            --dark-bg: #000000;
+            --dark-text: #FFFFFF;
         }
 
         html {
@@ -26,9 +31,15 @@
         }
 
         body {
-            background: var(--primary-black);
-            color: var(--white);
+            background: var(--dark-bg);
+            color: var(--dark-text);
             line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background: var(--light-bg);
+            color: var(--light-text);
         }
 
         .container {
@@ -37,12 +48,63 @@
             padding: 0 20px;
         }
 
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
         /* Header Styles */
         header {
             background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-                        url('shape-4.png') no-repeat center/cover;
+                        url('200.gif') no-repeat center/cover;
             height: 100vh;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+      
+            content: '\f0a5'; /* Font Awesome arrow icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            position: absolute;
+            bottom: 2rem;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        header::after:hover {
+            color: var(--secondary-blue);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
         }
 
         nav {
@@ -328,8 +390,74 @@
 <body>
     <!-- Header Section -->
     <header>
-        <nav style="flex-wrap: wrap; padding: 15px 5%; width: 100%; max-width: 100vw;">
+        <nav style="flex-wrap: wrap; padding: 15px 5%; width: 100%; max-width: 100vw; display: flex; align-items: center;">
             <div class="logo">AliFit</div>
+            <button id="theme-toggle" style="margin-left: 20px; padding: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.1); cursor: pointer; color: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: all 0.3s ease;" onclick="toggleTheme()">
+                <i class="fas fa-moon" id="theme-icon" style="transform: rotate(0deg); transition: transform 0.5s ease;"></i>
+            </button>
+            <script>
+                function toggleTheme() {
+                    const body = document.body;
+                    const icon = document.getElementById('theme-icon');
+                    const sections = document.querySelectorAll('section');
+                    
+                    if (body.classList.contains('dark-mode')) {
+                        // Switch to light mode
+                        body.classList.remove('dark-mode');
+                        icon.classList.remove('fa-sun');
+                        icon.classList.add('fa-moon');
+                        icon.style.transform = 'rotate(0deg)';
+                        
+                        // Update sections for light mode
+                        sections.forEach(section => {
+                            section.style.backgroundColor = '#ffffff';
+                            section.style.color = '#000000';
+                        });
+
+                        // Update text colors
+                        document.querySelectorAll('h1, h2, h3, p, a').forEach(element => {
+                            element.style.color = '#000000';
+                        });
+
+                    } else {
+                        // Switch to dark mode
+                        body.classList.add('dark-mode');
+                        icon.classList.remove('fa-moon');
+                        icon.classList.add('fa-sun');
+                        icon.style.transform = 'rotate(360deg)';
+                        
+                        // Update sections for dark mode
+                        sections.forEach(section => {
+                            section.style.backgroundColor = '#000000';
+                            section.style.color = '#ffffff';
+                        });
+
+                        // Update text colors
+                        document.querySelectorAll('h1, h2, h3, p, a').forEach(element => {
+                            element.style.color = '#ffffff';
+                        });
+                    }
+                }
+
+                // Check user's preferred color scheme
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.body.classList.add('dark-mode');
+                    const icon = document.getElementById('theme-icon');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    
+                    // Apply dark mode styles initially
+                    const sections = document.querySelectorAll('section');
+                    sections.forEach(section => {
+                        section.style.backgroundColor = '#000000';
+                        section.style.color = '#ffffff';
+                    });
+
+                    document.querySelectorAll('h1, h2, h3, p, a').forEach(element => {
+                        element.style.color = '#ffffff';
+                    });
+                }
+            </script>
             <div class="nav-links" style="display: flex; justify-content: center; align-items: center; margin: 0 auto;">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
@@ -400,6 +528,147 @@
             
     </section>
 
+    <!-- Features Section -->
+    <section class="features" style="padding: 100px 0; background: linear-gradient(45deg, rgba(0,0,0,0.9), rgba(30,144,255,0.1));">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary-blue);">App Features</h2>
+            <div class="slider-container" style="display: flex; overflow-x: hidden; scroll-behavior: smooth; padding: 2rem 0;">
+                <div class="slider" style="display: flex; animation: slide 20s linear infinite;">
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                                <path d="M10,40 Q10,10 40,10" fill="none" stroke="#3a3a3a" stroke-width="0.5"/>
+                                <path d="M160,10 Q190,10 190,40" fill="none" stroke="#3a3a3a" stroke-width="0.5"/>
+                                <path d="M10,360 Q10,390 40,390" fill="none" stroke="#3a3a3a" stroke-width="0.5"/>
+                                <path d="M160,390 Q190,390 190,360" fill="none" stroke="#3a3a3a" stroke-width="0.5"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="Overlay (1).png" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Workout Tracking</h3>
+                    </div>
+
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <!-- Same SVG frame structure -->
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Nutrition Planning</h3>
+                    </div>
+
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <!-- Same SVG frame structure -->
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Progress Analytics</h3>
+                    </div>
+
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <!-- Same SVG frame structure -->
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Live Coaching</h3>
+                    </div>
+
+                    <div style="text-align: center; min-width: 200px; margin: 0 1rem;">
+                        <div style="position: relative; width: 200px; height: 400px; margin: 0 auto;">
+                            <svg viewBox="0 0 200 400" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                                <!-- Same SVG frame structure -->
+                                <rect x="10" y="0" width="180" height="400" rx="40" fill="#1a1a1a"/>
+                                <rect x="12" y="2" width="176" height="396" rx="38" fill="#000"/>
+                                <rect x="15" y="5" width="170" height="390" rx="36" fill="#000"/>
+                                <rect x="65" y="12" width="70" height="25" rx="12.5" fill="#000"/>
+                                <circle cx="115" cy="24" r="5" fill="#1a1a1a"/>
+                                <circle cx="85" cy="24" r="3" fill="#1a1a1a"/>
+                                <rect x="2" y="90" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="135" width="4" height="35" rx="2" fill="#2a2a2a"/>
+                                <rect x="2" y="45" width="4" height="20" rx="2" fill="#2a2a2a"/>
+                                <rect x="194" y="90" width="4" height="50" rx="2" fill="#2a2a2a"/>
+                            </svg>
+                            <div style="position: absolute; top: 50px; left: 20px; width: 160px; height: 300px; border-radius: 20px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h3 style="color: var(--white); margin-top: 1.5rem; font-size: 1.2rem;">Community Support</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            @keyframes slide {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-100%);
+                }
+            }
+            .slider {
+                display: flex;
+                gap: 2rem;
+                padding: 2rem 0;
+            }
+            .slider > div {
+                flex-shrink: 0;
+            }
+        </style>
+    </section>
+
         <!-- Gallery Section -->
         <!-- Gallery Section -->
         <section class="gallery" id="gallery">
@@ -407,25 +676,39 @@
                 <h2>Transformations</h2>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3" alt="Transformation 1">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3" alt="Transformation 1">
+                        </a>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3" alt="Transformation 2">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3" alt="Transformation 2">
+                        </a>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3" alt="Transformation 3">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3" alt="Transformation 3">
+                        </a>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3" alt="Transformation 4">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3" alt="Transformation 4">
+                        </a>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?ixlib=rb-4.0.3" alt="Transformation 5">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?ixlib=rb-4.0.3" alt="Transformation 5">
+                        </a>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3" alt="Transformation 6">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3" alt="Transformation 6">
+                        </a>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3" alt="Transformation 7">
+                        <a href="transformations.html">
+                            <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3" alt="Transformation 7">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -482,6 +765,12 @@
     
         .gallery-item:hover img {
             transform: scale(1.1);
+        }
+
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
     
         @media (max-width: 768px) {
